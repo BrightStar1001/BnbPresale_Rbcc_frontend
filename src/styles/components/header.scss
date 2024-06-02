@@ -1,0 +1,73 @@
+  .header {
+    position: relative;
+    max-width: 1360px;
+    z-index: 1002;
+    width: 100%;
+
+    .main-menu {
+      font-size: 14px;
+      font-weight: 600;
+      a {
+        border-bottom: 2px solid transparent;
+        height: 24px;
+        margin-top: 8px;
+        &.active {
+          color: #d44444;
+          border-bottom: 2px solid #d44444;
+        }
+      }
+    }
+
+    .buttons {
+      .btn-mainnet {
+        min-width: 150px;
+        height: 40px;
+        border-radius: 12px;
+        padding: 10px 8px 10px 14px;
+        background-color: #393939;
+        font-size: 14px;
+        font-weight: 600;
+        color: #fff;
+        justify-content: space-between;
+        svg {
+          fill: getColor(base);
+        }
+      }
+
+      .btn-mainnet:disabled {
+        color: #8d8585
+      }
+    }
+
+    .main-network-menu,
+    .main-account-menu {
+      z-index: 1235;
+      position: absolute;
+      background-color: getColor(dialogBgColor);
+      width: 200px;
+      border: 1px solid getColor(dialogBorderColor);
+      border-radius: 12px;
+
+      svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      button {
+        padding: 15px;
+        font-size: 14px;
+        font-weight: 600;
+        width: 100%;
+        text-align: start;
+        display: flex;
+      }
+    }
+    .main-network-menu {
+      top: 72px;
+      right: 145px;
+    }
+    .main-account-menu {
+      top: 72px;
+      right: 20px;
+    }
+  }

@@ -1,0 +1,57 @@
+.staking-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1002;
+  gap: 20px;
+  max-width: 400px;
+  width: calc(100% - 20px);
+  
+  .modal-title {
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .modal-content {
+    border: 1px solid getColor(dialogBorderColor);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 10px;
+    gap: 20px;
+
+    .btn-max {
+      cursor: pointer;
+      color: getColor(text2);
+      margin-left: 10px;
+    }
+
+    div, span {
+      font-size: 12px;
+      color: getColor(text1);
+    }
+
+    input {
+      font-size: 16px;
+      color: getColor(text);
+      width: 50%;
+      flex-grow: 1;
+      background-color: transparent;
+    }
+  }
+
+  .modal-action {
+    margin-top: 10px;
+    button {
+      width: 100%;
+    }
+  }
+
+  @media screen and (max-width:400px) {
+    .btn-close {
+      top: 20px;
+      right: 20px;
+    }
+  }
+}

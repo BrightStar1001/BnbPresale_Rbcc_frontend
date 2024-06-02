@@ -1,0 +1,40 @@
+.faq-item {
+  background: getColor(panelBgColor);
+  border-radius: 20px;
+  transition-duration: 1s;
+
+  .question {
+    font-size: 22px;
+    line-height: 24px;
+    padding-top: 10px;
+    color: getColor(text2);
+  }
+
+  .btn-expand {
+    width: 25px;
+    height: 25px;
+    padding: 5px;
+    border-radius: 30px;
+    background: getColor(expandBgColor);
+    color: white;
+  }
+
+  .answer {
+    font-size: 16px;
+    line-height: 18px;
+    color: getColor(text1);
+    padding: 0 15px 15px;
+  }
+
+  @media only screen and (max-width: 800px) {
+    .question {
+      font-size: 18px;
+      line-height: 20px;
+    }
+   
+    .answer {
+      font-size: 14px;
+      line-height: 16px;
+    }
+  }
+}

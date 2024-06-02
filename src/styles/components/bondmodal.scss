@@ -1,0 +1,117 @@
+.bond-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1002;
+  gap: 20px;
+  width: calc(100% - 20px);
+  max-width: 500px;
+  transition: all .2s ease-in-out 0s;
+  
+  .bond-title {
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .bond-content {
+    border: 1px solid getColor(dialogBorderColor);
+    border-radius: 12px;
+    padding: 20px;
+    gap: 20px;
+
+    .price-info {
+      font-size: 16px;
+      label {
+        color: getColor(text1)
+      }
+    }
+
+    .token-info {
+      justify-content: space-between;
+      > div {
+        align-items: center;
+        gap: 5px;
+        span {
+          font-size: 14px;
+          color: getColor(text1);
+          flex-grow: 1;
+          display: flex;
+          align-items: end;
+        }
+        img {
+          width: 32px;
+          height: 32px;
+        }
+        svg {
+          width: 36px;
+          height: 36px;
+        }
+      }
+    }
+
+    .input-info {
+      margin-top: 10px;
+      gap: 10px;
+      .title {
+        > :first-child {
+          font-size: 16px;
+          color: getColor(text1);
+          font-weight: 700;
+        }
+        .max-value {
+          font-size: 14px;
+          color: getColor(text2);
+        }
+      }
+
+      .input-value {
+        border: 1px solid getColor(tabBgColor);
+        border-radius: 12px;
+        height: 43px;
+        padding: 12px;
+        gap: 10px;
+        align-items: center;
+        input {
+          background-color: transparent;
+          font-size: 16px;
+          width: 50%;
+        }
+        .usd-price,
+        .fee-price {
+          font-size: 12px;
+          color: getColor(text1);
+        }
+        .btn-max {
+          cursor: pointer;
+          font-size: 12px;
+          color: getColor(text2);
+          font-weight: 700;
+        }
+      }
+    }
+
+    .divider {
+      margin: 0;
+    }
+  }
+
+  .bond-info > div {
+    font-size: 14px;
+    :first-child {
+      color: getColor(text1)
+    }
+  }
+
+  .value {
+    font-weight: 500;
+  }
+
+  @media screen and (max-width:600px) {
+    .btn-close {
+      top: 20px;
+      right: 20px;
+    }
+  }
+}

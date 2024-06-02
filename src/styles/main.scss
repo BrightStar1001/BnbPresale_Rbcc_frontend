@@ -1,0 +1,32 @@
+@import "variables";
+@import "base";
+@import "utils";
+
+// COMPONENTS
+@import "./components/header.scss";
+@import "./components/switchtheme.scss";
+@import "./components/mobilemenu.scss";
+@import "./components/walletconnect.scss";
+@import "./components/faqitem.scss";
+@import "./components/homeitem.scss";
+@import "./components/stakingmodal.scss";
+@import "./components/caelumpaper.scss";
+@import "./components/bondmodal.scss";
+@import "./components/common.scss";
+@import "./components/mintactions.scss";
+@import "./components/mintpool.scss";
+@import "./components/barchart.scss";
+@import "./components/circlechart.scss";
+
+// PAGES
+@import "./pages/home.scss";
+@import "./pages/mint.scss";
+@import "./pages/market.scss";
+@import "./pages/staking.scss";
+@import "./pages/earn.scss";
+
+// LAYOUT
+@import "layout";
+
+// DARK VERSION
+@import "dark";

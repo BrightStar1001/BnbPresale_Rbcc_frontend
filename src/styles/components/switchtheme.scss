@@ -1,0 +1,22 @@
+.btn-switch-theme {
+  width: 100px;
+  height: 40px;
+  border-radius: 50px;
+  background-color: getColor(panelBgColor);
+  justify-content: center;
+  align-items: center;
+
+  .btn-light,
+  .btn-dark {
+    width: 44px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .active {
+    background-color: getColor(switchBtnColor);
+    border-radius:  50px;
+  }
+}

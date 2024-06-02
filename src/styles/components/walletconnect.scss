@@ -1,0 +1,88 @@
+.wallet-connect {
+  // position: fixed;
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
+  font-size: 24px;
+  font-weight: 700;
+  z-index: 1005;
+
+  .item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    padding: 20px;
+    cursor: pointer;
+
+    &.meta {
+      background: getColor(walletBg1);
+      border-radius: 20px 0 0 20px;
+      .label {color: #F6851B;}
+    }
+    
+    &.wallet {
+      background: getColor(walletBg2);
+      .label{color: #3B99FC;}
+    }
+    
+    &.base {
+      background: getColor(walletBg3);
+      border-radius: 0 20px 20px 0;
+      .label{color: #0051FF;}
+    }
+
+    .icon {
+      height: 150px;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  @media only screen and (max-width: 800px) {
+    flex-direction: column;
+
+    .item {
+      flex-direction: row;
+      justify-content: start;
+      padding: 10px;
+      width: 300px;
+      gap: 10px;
+      margin: 5px;
+      font-size: 24px;
+  
+      &.meta {
+        background: getColor(walletBg1);
+        border-radius: 20px;
+        .label {color: #F6851B;}
+        .icon {
+          width: 60px;
+          height: 60px;
+        }
+      }
+      
+      &.wallet {
+        background: getColor(walletBg2);
+        border-radius: 20px;
+        .label{color: #3B99FC;}
+        .icon {
+          width: 60px;
+          height: 60px;
+        }
+      }
+      
+      &.base {
+        background: getColor(walletBg3);
+        border-radius: 20px;
+        .label{color: #0051FF;}
+        .icon {
+          width: 60px;
+          height: 60px;
+          padding: 5px;
+        }
+      }
+    }
+    
+  }
+}

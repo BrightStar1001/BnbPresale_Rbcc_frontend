@@ -1,0 +1,39 @@
+.mint__container {
+  width: 100%;
+  height: 100%;
+  
+  .overview {
+    .title {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    .content {
+      gap: 20px;
+      justify-content: center;
+      .labels {
+        gap: 20px;
+        font-size: 16px;
+        span {
+          color: getColor(text1)
+        }
+      }
+      .values {
+        gap: 20px;
+        font-size: 16px;
+        text-align: right;
+      }
+    }
+  }
+}
+
+.mint-actions,
+.mint-pool {
+  width: 50%;
+}
+  
+@media only screen and (max-width: 900px) {
+  .mint-actions,
+  .mint-pool {
+    width: 100%;
+  }
+}

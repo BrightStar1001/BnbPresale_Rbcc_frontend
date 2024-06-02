@@ -1,0 +1,63 @@
+.home__container {
+  width: 100%;
+  height: 100%;
+
+  .btn-bottom {
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  
+  .tutorial-items {
+    text-align: center;
+    .title {
+      font-size: 20px;
+      font-weight: 600;
+      height: 40px;
+    }
+    .content {
+      font-size: 13px;
+      color: getColor(text1);
+      line-height: 17px;
+    }
+    .icons {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      margin: 15px 0 5px;
+      flex-grow: 1;
+      align-items: end;
+      img, svg {
+        width: 32px;
+        height: 32px;
+      }
+    }
+    .bottom-tag {
+      font-size: 13px;
+      color: #41454B;//getColor(text1)
+    }
+  }
+
+  @media only screen and (max-width: 800px) {
+    position: static;
+    min-height: calc(90vh - $header-size);
+    .primary-btn {
+      margin-bottom: 30px;
+    }
+  }
+
+  
+  @media only screen and (max-width: 900px) {
+    .tutorial-items {
+      .title {
+        height: 20px;
+      }
+
+      .divider {
+        margin: 10px;
+      }
+    }
+  }
+}

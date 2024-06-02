@@ -1,0 +1,12 @@
+.caelum-paper {
+  padding: 40px;
+  border: 1px solid getColor(dialogBorderColor);
+  border-radius: 28px;
+  background-color: getColor(dialogBgColor);
+}
+
+@media screen and (max-width:400px) {
+  .caelum-paper {
+    padding: 20px;
+  }
+}

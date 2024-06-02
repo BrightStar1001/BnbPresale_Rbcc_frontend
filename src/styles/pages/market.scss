@@ -1,0 +1,15 @@
+.market__container {
+  width: 100%;
+  height: 100%;
+
+  .mobile-table {
+    display: none;
+  }
+  
+  @media only screen and (max-width: 800px) {
+    .mobile-table {
+      display: flex;
+    }
+  }
+
+}

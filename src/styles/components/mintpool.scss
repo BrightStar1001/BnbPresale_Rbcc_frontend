@@ -1,0 +1,50 @@
+.mint-pool {
+  height: 540px;
+  .title {
+    font-size: 20px;
+    text-align: center;
+    line-height: 30px;
+  }
+  .icon {
+    width: 34px;
+    height: 34px;
+    margin: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  .pool-info {
+    .labels {
+      font-size: 16px;
+      line-height: 40px;
+      span {
+        color: getColor(text1)
+      }
+    }
+    .values {
+      font-size: 16px;
+      line-height: 40px;
+      span {
+        text-align: right;
+      }
+    }
+  }
+  .reward-info {
+    flex-grow: 1;
+    font-size: 16px;
+    line-height: 22px;
+    justify-content: end;
+    >:first-child div {
+      color: getColor(text1);
+    }
+    >:last-child div {
+      font-weight: 700;
+      color: getColor(text2);
+    }
+  }
+  .buttons {
+    justify-content: space-around;
+    button {
+      width: 150px;
+    }
+  }
+}

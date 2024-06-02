@@ -1,0 +1,97 @@
+.market-table {
+  > thead {
+    font-size: 13px;
+    line-height: 24px;
+    th, span {
+      color: getColor(text1);
+      text-align: left;
+    }
+  
+    img {
+      width: 17px;
+      height: 17px;
+    }
+
+    svg {
+      width: 14px;
+    }
+  }
+
+  > tbody {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    color: getColor(text);
+    
+    tr {
+      height: 56px;
+    }
+
+    img {
+      width: 26px;
+      height: 26px;
+    }
+  
+    .get-url {
+      font-size: 13px;
+      color: getColor(text1);
+      cursor: pointer;
+      svg {
+        width: 13px;
+        fill: getColor(text1);
+      }
+    }
+  }
+}
+
+.mobile-table {
+  padding: 12px;
+  border-radius: 12px;
+  
+  .market-mobile-item {
+    border: 1px solid getColor(dialogBorderColor);
+    border-radius: 12px;
+    padding: 12px;
+
+    > .item {
+      width: 50%;
+    }
+  
+    .label {
+      font-size: 13px;
+      line-height: 24px;
+      color: getColor(text1);
+      text-align: left;
+    }
+  
+    span {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 24px;
+      color: getColor(text);
+    }
+  
+    img {
+      width: 26px;
+      height: 26px;
+    }
+  
+    .get-url {
+      font-size: 13px;
+      color: getColor(text1);
+      cursor: pointer;
+      svg {
+        width: 13px;
+        fill: getColor(text1);
+      }
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    .market-mobile-item {
+      > .item {
+        width: 100%;
+      }
+    }
+  }
+}
