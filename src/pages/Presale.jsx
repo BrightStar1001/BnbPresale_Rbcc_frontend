@@ -37,6 +37,7 @@ function Presale() {
   const bnbConstant = "BNB";
   const usdtConstant = "USDT";
   const [remainingTime, setRemainingTime] = useState(0);
+  const [claimAmount, setClaimAmount] = useState(0);
   const [currencyState, setCurrencyState] = useState(0)
   const [drop, setDrop] = useState(false);
   const [usdtBalance, setUsdtBalance] = useState(0);
@@ -71,19 +72,19 @@ function Presale() {
     ]
   })
 
-  const { data: TotalEthResult, isLoading: loadingT, isRefetching: isRefetchTTT, refetch: refetchTotalDepositedEther } = useContractReads({
+  const { data: claimResult } = useContractReads({
     contracts: [
       {
         ...getPresaleContract(chainId),
-        functionName: "totalDepositedEth",
-        args: [],
-      }
-    ],
+        functionName: "getAddressBought",
+        args: [address],
+      },
+    ]
   })
 
   useEffect(() => {
     if (!contractResult) return
-    if(contractResult[0].result != undefined) {
+    if (contractResult[0].result != undefined) {
       setRemainingTime(getFormattedUnits(contractResult[0].result));
     }
     else {
@@ -93,17 +94,8 @@ function Presale() {
   }, [contractResult])
 
   useEffect(() => {
-    if (!TotalEthResult) return
-    const _totalDepositedEther = getContractResult(TotalEthResult[0])
-    setTotalDepositedEthAmount(_totalDepositedEther)
-    if (!contractResult) return
-    const _endUnix = endTime * 1000;
-    const currentTime = new Date().getTime();
-  }, [TotalEthResult, contractResult, softCap, hardCap])
-
-  useEffect(() => {
     if (contractResult) {
-      console.log("remainingTime--",remainingTime)
+      console.log("remainingTime--", remainingTime)
       const timerId = setInterval(() => {
         if (parseInt(remainingTime) > 0) {
           const _remainingTIme = remainingTime * 1000;
@@ -120,6 +112,14 @@ function Presale() {
       }
     }
   }, [contractResult, startTime, endTime])
+
+  useEffect(() => {
+    console.log("claim-----effect", claimResult)
+    if (claimResult !== undefined) {
+      console.log("claim", typeof claimResult[0].result)
+      setClaimAmount(claimResult[0].result);
+    }
+  }, [presaleState]);
 
   const { writeAsync: buyWithBNB } = useContractWrite({
     ...getPresaleContract(chainId),
@@ -150,11 +150,25 @@ function Presale() {
     }
   })
 
+  const { writeAsync: claimRbcc } = useContractWrite({
+    ...getPresaleContract(chainId),
+    functionName: "claimRbcc",
+    onSuccess: (data) => {
+      toast.success("Transaction Submitted!")
+      setTxHash(data.hash)
+    },
+    onError: (data) => {
+      toast.error(getErrorMessage(data))
+      setTxHash(null)
+      setPendingTx(false)
+    }
+  })
+
   const fetchUsdtBalance = async () => {
     try {
       const balance = await usdtContract.methods.balanceOf(address).call();
       console.log("usdt balance--", balance)
-      setUsdtBalance(web3.utils.fromWei(balance, 'mwei')/(10**12)); // USDT has 6 decimals (mwei)
+      setUsdtBalance(web3.utils.fromWei(balance, 'mwei') / (10 ** 6)); // USDT has 6 decimals (mwei)
     } catch (error) {
       console.error("Error fetching USDT balance:", error);
       setUsdtBalance(0);
@@ -186,58 +200,14 @@ function Presale() {
     setDrop(false)
     if (currencies[idx] === usdtConstant) {
       await fetchUsdtBalance();
-      setCryptoChange( usdtBalance)
+      setCryptoChange(usdtBalance)
     }
     if (currencies[idx] === bnbConstant) {
       await fetchBnbBalance();
       setCryptoChange(bnbBalance)
     }
-
-    // cryptoChange = currencies[currencyState] == bnbConstant ? usdtBalance : bnbBalance;
-   
   }
 
-  const { writeAsync: Claim } = useContractWrite({
-    ...getPresaleContract(chainId),
-    functionName: "claimRbcc",
-    onSuccess: (data) => {
-      toast.success("Transaction Submitted!")
-      setTxHash(data.hash)
-    },
-    onError: (data) => {
-      toast.error(getErrorMessage(data))
-      setTxHash(null)
-      setPendingTx(false)
-    }
-  })
-
-  const { writeAsync: Refund } = useContractWrite({
-    ...getPresaleContract(chainId),
-    functionName: "claimRefund",
-    onSuccess: (data) => {
-      toast.success("Transaction Submitted!")
-      setTxHash(data.hash)
-    },
-    onError: (data) => {
-      toast.error(getErrorMessage(data))
-      setTxHash(null)
-      setPendingTx(false)
-    }
-  })
-
-  const { writeAsync: finishSale } = useContractWrite({
-    ...getPresaleContract(chainId),
-    functionName: "finishSale",
-    onSuccess: (data) => {
-      toast.success("Transaction Submitted!")
-      setTxHash(data.hash)
-    },
-    onError: (data) => {
-      toast.error(getErrorMessage(data))
-      setTxHash(null)
-      setPendingTx(false)
-    }
-  })
 
   useWaitForTransaction({
     hash: txHash,
@@ -250,19 +220,18 @@ function Presale() {
   })
 
   const handleAction = async () => {
-    if (currencies[currencyState] == usdtConstant) {
-      if (cryptoChange < 50) {
-        toast.success("Minimum order amount is $50!");
-        return;
-      }
-    }else  {
-      if (cryptoChange < (50/600)) {
-        toast.success("Minimum order amount is $50!")
-        return;
-      }
-    }
-
     if (presaleState == stateVal.Open) {
+      if (currencies[currencyState] == usdtConstant) {
+        if (cryptoChange < 50) {
+          toast.success("Minimum order amount is $50!");
+          return;
+        }
+      } else {
+        if (cryptoChange < (50 / 600)) {
+          toast.success("Minimum order amount is $50!")
+          return;
+        }
+      }
       let transferVal = parseFloat(cryptoChange);
       if (!transferVal) return;
       setPendingTx(true)
@@ -284,12 +253,18 @@ function Presale() {
           from: address
         });
       }
+      setPendingTx(false)
     } else if (presaleState == stateVal.End) {
+      console.log('claim--start---')
       setPendingTx(true)
-      Claim({
-        args: [],
-        from: address
-      });
+      console.log('claim--pending start---')
+      if (claimResult[0].result > 0) {
+        claimRbcc({
+          args: []
+        });
+        setClaimAmount(0)
+      }
+      setPendingTx(false)
     } else if (presaleState == stateVal.Fail) {
       setPendingTx(true)
       Refund({
@@ -300,33 +275,25 @@ function Presale() {
   }
 
   const setInputMax = () => {
-    // if (!accountBalance) {
-    //   cryptoChange = 0
-    //   return
-    // }
-    // cryptoChange = Number(accountBalance.formatted) > 0.01 ? accountBalance.formatted - 0.01 : 0
-    // setInputValue(cryptoChange)
-    // cryptoChange = currencies[currencyState] == bnbConstant ? bnbBalance : usdtBalance;
     setCryptoChange(currencies[currencyState] == bnbConstant ? bnbBalance : usdtBalance)
   }
 
   const changeValue = (e) => {
     const val = e.target.value;
     console.log(val);
-    if (currencies[currencyState] == bnbConstant){
-      if (parseFloat(val) > bnbBalance){
+    if (currencies[currencyState] == bnbConstant) {
+      if (parseFloat(val) > bnbBalance) {
         toast.error("Balance is " + bnbBalance);
         return;
       }
-      
-    }else {
-      if (parseFloat(val) > usdtBalance){
+
+    } else {
+      if (parseFloat(val) > usdtBalance) {
         toast.error("Balance is " + usdtBalance);
         return;
       }
     }
     setCryptoChange(parseFloat(val));
-    // cryptoChange = parseFloat(val);
   }
   console.log("----render")
   return (
@@ -427,7 +394,7 @@ function Presale() {
             </div>}
             <section className="flex flex-col items-center justify-center w-full top-padding">
               {presaleState === stateVal.End && <div>
-                <div className="pb-5">You can claim {getFormattedDisplayNumber(userDepositEthAmount * presaleRate)} Robocopcoin</div>
+                <div className="pb-5">You can claim {getFormattedDisplayNumber(claimAmount)} Robocopcoin</div>
               </div>}
               <button
                 className="!h-auto w-full max-w-[140px] primary-btn text-center !text-[18px] !py-[15px]"

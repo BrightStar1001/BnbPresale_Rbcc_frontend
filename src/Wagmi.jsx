@@ -12,7 +12,7 @@ const walletConnectProjectId = '9da0946eba351cb153deff70667959c8'
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   // [mainnet, bsc, bscTestnet, goerli, localhost, foundry],
-  [bsc],
+  [bscTestnet],
   [publicProvider()],
 )
 
